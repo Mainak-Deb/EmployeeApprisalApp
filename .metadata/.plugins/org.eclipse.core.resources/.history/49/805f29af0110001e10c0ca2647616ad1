@@ -1,0 +1,50 @@
+package com.employee.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.employee.DAO.EmployeeDAO;
+import com.employee.form.EmployeeForm;
+
+public class UpdateDetailsAction extends Action {
+	 public ActionForward execute(ActionMapping mapping, ActionForm form,
+		        HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 String type = request.getParameter("type");
+		 
+		 EmployeeDAO edao = new EmployeeDAO();
+		 if(type.equals("no_promotion")) {
+			 double basic = Double.parseDouble(request.getParameter("basic"));
+			 double medical = Double.parseDouble(request.getParameter("medical"));
+			 double sa = Double.parseDouble(request.getParameter("sa"));
+			 int hra = Integer.parseInt( request.getParameter("hra"));
+			 int pf = Integer.parseInt( request.getParameter("pf"));
+			 int food = Integer.parseInt( request.getParameter("food"));
+			 int travel = Integer.parseInt( request.getParameter("travel"));
+			 
+			 EmployeeForm  emp = new EmployeeForm();
+			 emp.setEmpID(request.getParameter("eid"));
+			 emp.addSalaryDetails(basic, sa, medical, hra, pf, food, travel);
+			 boolean isSuccess=edao.updateSalary(emp);
+			 if(isSuccess) {
+				 return mapping.findForward("success");
+			 }else {
+				 return mapping.findForward("failure");
+			 }
+			 
+		 }
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 return mapping.findForward("failure");
+	 }
+}

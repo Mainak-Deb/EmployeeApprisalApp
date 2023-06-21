@@ -1,0 +1,43 @@
+package com.employee.form;
+
+import org.apache.struts.action.ActionForm;
+
+public class EmployeeForm extends ActionForm {
+	private String empID;
+    private String name;
+    private String postedDate;
+    private String level;
+    private double ctc;
+    private String username;
+    private String password;
+    private String role;
+    private String designation;
+    private double basic;
+    private double specialAllowances;
+    private double medical;
+    private int hra;
+    private int pf;
+    private int food;
+    private int travel;
+    
+    public EmployeeForm(String empID, String name, String postedDate, String level, double ctc, String username,
+            String password, String role, String designation, double basic, double specialAllowances,
+            double medical, int hra, int pf, int food, int travel) {
+		this.empID = empID;
+		this.name = name;
+		this.postedDate = postedDate;
+		this.level = level;
+		this.ctc = ctc;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.designation = designation;
+		this.basic = basic;
+		this.specialAllowances = specialAllowances;
+		this.medical = medical;
+		this.hra = hra;
+		this.pf = pf;
+		this.food = food;
+		this.travel = travel;
+	}
+}

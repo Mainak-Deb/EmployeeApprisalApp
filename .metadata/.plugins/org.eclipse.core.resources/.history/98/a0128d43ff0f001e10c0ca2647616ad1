@@ -1,0 +1,38 @@
+package com.employee.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.employee.DAO.EmployeeDAO;
+import com.employee.form.EmployeeForm;
+
+public class UpdateDetailsAction extends Action {
+	 public ActionForward execute(ActionMapping mapping, ActionForm form,
+		        HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 String type = request.getParameter("type");
+		 EmployeeForm  emp = new EmployeeForm();
+		 if(type.equals("no_promotion")) {
+			 String basic = request.getParameter("basic");
+			 String medical = request.getParameter("medical");
+			 String sa = request.getParameter("sa");
+			 String hra = request.getParameter("hra");
+			 String pf = request.getParameter("pf");
+			 String food = request.getParameter("food");
+			 String travel = request.getParameter("travel");
+		 }
+		 
+		 EmployeeDAO edao = new EmployeeDAO();
+		 
+		 
+		 
+		 
+		 
+		 
+
+	 }
+}

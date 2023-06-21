@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<struts-config>
+
+
+  <action-mappings>
+    <action path="/login" type="com.employee.action.LoginAction" name="LoginAction"
+     scope="request"  >
+      <forward name="admin" path="/WEB-INF/views/adminPage.jsp" />
+      <forward name="user" path="/WEB-INF/views/userPage.jsp" />
+       <forward name="failure" path="/WEB-INF/views/error.jsp" />
+    </action>
+  </action-mappings>
+  
+  
+
+    <action-mappings>
+      <action path="/getDetails" type="com.employee.action.EmployeeDetailsAction" name="EmployeeDetailsAction"
+     scope="request"  >
+      <forward name="success" path="/WEB-INF/views/adminData.jsp" /> 
+    </action>     
+  </action-mappings>
+    
+    
+    
+ </struts-config>
+ 

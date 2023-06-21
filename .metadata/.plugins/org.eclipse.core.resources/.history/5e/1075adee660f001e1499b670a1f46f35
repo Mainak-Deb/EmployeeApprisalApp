@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Page</title>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 400px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #employeeForm {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #employeeForm label {
+      margin-top: 10px;
+    }
+
+    #employeeForm input[type="submit"] {
+      margin-top: 20px;
+    }
+
+    .modalpart{
+      padding: 10px;
+      border: 2px solid red;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label for="empid">Employee ID:</label>
+    <input type="text" id="empid" name="empid" />
+    <button onclick='fetchData()'> Get Data</button>
+  </div>  
+    <br />
+ 	
+ 	<div id="nextContent"></div>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+	    function fetchData() {
+	    		var isr={"eid":document.getElementById("empid").value}
+	    		
+	    	  $.ajax({
+	    	    url: 'getDetails.do',
+	    	    type: 'POST',
+	    	    dataType: 'html',
+	    	    data: isr,
+	    	    success: function(response) {
+	    	    	 $('#nextContent').html(response);
+	    	    },
+	    	    error: function(xhr, status, error) {
+	    	      // Handle the error
+	    	    }
+	    	  });
+	    	}
+    </script>
+    
+    
+</body>
+
+</html>
