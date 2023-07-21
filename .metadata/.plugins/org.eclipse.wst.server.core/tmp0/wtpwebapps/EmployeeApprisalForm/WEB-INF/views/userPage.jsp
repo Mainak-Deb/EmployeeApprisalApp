@@ -1,74 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="ISO-8859-1"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
-    
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        table, th, td {
-          border: 1px solid;
-          text-align: center;
-        }
-        
-        table {
-          width: 80%;
-          margin: auto;
-        }
-        </style>
-        
-</head>
-<body>
+      table,
+      th,
+      td {
+        border: 1px solid;
+        text-align: center;
+      }
 
-    <h1 style="text-align: center;" >${employeeDetails.name}</h1>
-    <div style="text-align: center;" >${employeeDetails.designation}</div> <br><br>
-    <hr>
+      table {
+        width: 80%;
+        margin: auto;
+      }
+    </style>
+    <link rel="stylesheet" href="public/styles/userPage.css" />
+  </head>
+  <body>
+    <div id="user-head">
+      <h1 style="text-align: center">${employeeDetails.name}</h1>
+      <div style="text-align: center">${employeeDetails.designation}</div>
+      <br /><br />
+    </div>
+    <hr />
     <div>
-    <h2 style="text-align: center;" >Personal Details</h2>
-    <table>
+      <h2 style="text-align: center">Personal Details</h2>
+      <table>
         <tr>
           <th>Field</th>
           <th>Value</th>
         </tr>
-         <tr>
+        <tr>
           <td>Employee Id</td>
-          <td> ${employeeDetails.empID}</td>
+          <td>${employeeDetails.empID}</td>
         </tr>
         <tr>
           <td>Level</td>
-          <td> ${employeeDetails.level}</td>
+          <td>${employeeDetails.level}</td>
         </tr>
         <tr>
           <td>Joining date</td>
           <td>${employeeDetails.postedDate}</td>
         </tr>
         <tr>
-            <td>Processed Date</td>
-            <td>${employeeDetails.processedDate}</td>
+          <td>Processed Date</td>
+          <td>${employeeDetails.processedDate}</td>
         </tr>
         <tr>
-            <td>CTC</td>
-            <td>${String.format("%.2f", employeeDetails.ctc)}</td>
-        </tr>
-
-        <tr>
-            <td>Email</td>
-            <td>${employeeDetails.username}</td>
+          <td>CTC</td>
+          <td>${String.format("%.2f", employeeDetails.ctc)}</td>
         </tr>
 
         <tr>
-            <td>Role</td>
-            <td>${employeeDetails.role}</td>
+          <td>Email</td>
+          <td>${employeeDetails.username}</td>
+        </tr>
+
+        <tr>
+          <td>Role</td>
+          <td>${employeeDetails.role}</td>
         </tr>
       </table>
 
-      <br><br>
-      <hr>
-      <h2 style="text-align: center;" >Salary Structure</h2>
+      <br /><br />
+      <hr />
+      <h2 style="text-align: center">Salary Structure</h2>
       <table>
         <tr>
           <th>Field</th>
@@ -83,31 +86,42 @@
           <td>${String.format("%.2f", employeeDetails.medical)}</td>
         </tr>
         <tr>
-            <td>Special allowence</td>
-            <td>${String.format("%.2f", employeeDetails.specialAllowances)}</td>
+          <td>Special allowence</td>
+          <td>${String.format("%.2f", employeeDetails.specialAllowances)}</td>
         </tr>
         <tr>
-            <td>Provident Fund</td>
-            <td>${String.format("%.2f", employeeDetails.basic*employeeDetails.pf/100)}</td>
-        </tr>
-
-        <tr>
-            <td>House Rent Allowance</td>
-            <td>${String.format("%.2f", employeeDetails.basic*employeeDetails.hra/100)}</td>
+          <td>Provident Fund</td>
+          <td>
+            ${String.format("%.2f",
+            employeeDetails.basic*employeeDetails.pf/100)}
+          </td>
         </tr>
 
         <tr>
-            <td>Food Allowance</td>
-            <td>${String.format("%.2f", employeeDetails.specialAllowances*employeeDetails.food/100)}</td>
+          <td>House Rent Allowance</td>
+          <td>
+            ${String.format("%.2f",
+            employeeDetails.basic*employeeDetails.hra/100)}
+          </td>
+        </tr>
+
+        <tr>
+          <td>Food Allowance</td>
+          <td>
+            ${String.format("%.2f",
+            employeeDetails.specialAllowances*employeeDetails.food/100)}
+          </td>
         </tr>
         <tr>
-            <td>Travel allowence</td>
-            <td>${String.format("%.2f", employeeDetails.specialAllowances*employeeDetails.travel/100)}</td>
+          <td>Travel allowence</td>
+          <td>
+            ${String.format("%.2f",
+            employeeDetails.specialAllowances*employeeDetails.travel/100)}
+          </td>
         </tr>
       </table>
 
-      <br><br>
-      </div>
-
-</body>
+      <br /><br />
+    </div>
+  </body>
 </html>

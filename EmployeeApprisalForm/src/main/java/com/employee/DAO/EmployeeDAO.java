@@ -1,6 +1,5 @@
 package com.employee.DAO;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.util.List;
 import com.employee.form.EmployeeForm;
 
 public class EmployeeDAO {
-	private String jdbcURL;
+    private String jdbcURL;
     private String jdbcUsername;
     private String jdbcPassword;
     private Connection jdbcConnection;
@@ -42,66 +41,65 @@ public class EmployeeDAO {
         }
     }
 
-	    
-	public boolean authenticate(String username, String password,String role) throws SQLException {
-	    	
-	        String sql = "SELECT * FROM Employees WHERE Username = '"+username +"'";
-	        connect();
-	
-	        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-	        
-	        String real_password=null;
-	        String job_role=null;
-	        ResultSet resultSet = statement.executeQuery();
-	        if (resultSet.next()) {
-	            real_password = resultSet.getString("Password");
-	            job_role = resultSet.getString("Role").toLowerCase();
-	        }
-	        
-	        System.out.println(password+", "+ real_password);
-	        System.out.println(job_role+", "+ role);
-	        if((job_role.equals("user")) && role.equals("admin") ){
-	        	return false;
-	        }
-	        if(password.equals(real_password)) {
-	        	System.out.println(password+", "+ real_password);
-	        	resultSet.close();
-	            statement.close();
-	            disconnect();
-	        	return true;
-	        }else {
-	        	System.out.println("Error occured");
-	        	resultSet.close();
-	            statement.close();
-	            disconnect();
-	        	return false;
-	        }
-	    }
-	
-	public EmployeeForm getData(String eid) throws SQLException {
+    public boolean authenticate(String username, String password, String role) throws SQLException {
 
-        EmployeeForm  emp = new EmployeeForm();
-        String sql = "SELECT * FROM Employees WHERE EmpId = '"+eid+"'";
+        String sql = "SELECT * FROM Employees WHERE Username = '" + username + "'";
         connect();
-        System.out.println("finding "+eid);
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+
+        String real_password = null;
+        String job_role = null;
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            real_password = resultSet.getString("Password");
+            job_role = resultSet.getString("Role").toLowerCase();
+        }
+
+        System.out.println(password + ", " + real_password);
+        System.out.println(job_role + ", " + role);
+        if ((job_role.equals("user")) && role.equals("admin")) {
+            return false;
+        }
+        if (password.equals(real_password)) {
+            System.out.println(password + ", " + real_password);
+            resultSet.close();
+            statement.close();
+            disconnect();
+            return true;
+        } else {
+            System.out.println("Error occured");
+            resultSet.close();
+            statement.close();
+            disconnect();
+            return false;
+        }
+    }
+
+    public EmployeeForm getData(String eid) throws SQLException {
+
+        EmployeeForm emp = new EmployeeForm();
+        String sql = "SELECT * FROM Employees WHERE EmpId = '" + eid + "'";
+        connect();
+        System.out.println("finding " + eid);
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-        	 String empID = resultSet.getString("EmpID");
-             String name = resultSet.getString("Name");
-             String postedDate = resultSet.getString("PostedDate");
-             String level = resultSet.getString("Level");
-             double ctc = resultSet.getDouble("CTC");
-             String username = resultSet.getString("Username");
-             String role = resultSet.getString("Role");
-             String designation = resultSet.getString("Designation");
-             emp.addEmployees(empID,name,postedDate,level,ctc,username,role,designation);
+            String empID = resultSet.getString("EmpID");
+            String name = resultSet.getString("Name");
+            String postedDate = resultSet.getString("PostedDate");
+            String level = resultSet.getString("Level");
+            double ctc = resultSet.getDouble("CTC");
+            String username = resultSet.getString("Username");
+            String role = resultSet.getString("Role");
+            String designation = resultSet.getString("Designation");
+            emp.addEmployees(empID, name, postedDate, level, ctc, username, role, designation);
         }
         resultSet.close();
         statement.close();
-        
-        sql = "SELECT * FROM salaryDetails WHERE EmpId = '"+eid+"'";
+
+        sql = "SELECT * FROM salaryDetails WHERE EmpId = '" + eid + "'";
 
         statement = jdbcConnection.prepareStatement(sql);
         resultSet = statement.executeQuery();
@@ -117,48 +115,46 @@ public class EmployeeDAO {
         }
         resultSet.close();
         statement.close();
-        
-        
+
         disconnect();
-        
+
         return emp;
-   }
-	
-	public String getEmployeeId(String username) throws SQLException {
-        String empID =null;
-        String sql = "SELECT EmpID FROM Employees WHERE Username = '"+username+"'";
+    }
+
+    public String getEmployeeId(String username) throws SQLException {
+        String empID = null;
+        String sql = "SELECT EmpID FROM Employees WHERE Username = '" + username + "'";
         connect();
-        System.out.println("finding "+username);
+        System.out.println("finding " + username);
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-        	  empID = resultSet.getString("EmpID");
+            empID = resultSet.getString("EmpID");
         }
         resultSet.close();
         statement.close();
         disconnect();
-        
-        return  empID;
-   }
 
-	
-	public boolean updateSalary(EmployeeForm emp) throws SQLException {
-		String sql = "UPDATE SalaryDetails\r\n"
-				+ "SET Basic = ?,\r\n"
-				+ "    SpecialAllowances = ?,\r\n"
-				+ "    Medical = ?,\r\n"
-				+ "    HRA = ?,\r\n"
-				+ "    PF = ?,\r\n"
-				+ "    Food =?,\r\n"
-				+ "    Travel = ?\r\n"
-				+ "WHERE EmpID =?";
+        return empID;
+    }
+
+    public boolean updateSalary(EmployeeForm emp) throws SQLException {
+        String sql = "UPDATE SalaryDetails\r\n"
+                + "SET Basic = ?,\r\n"
+                + "    SpecialAllowances = ?,\r\n"
+                + "    Medical = ?,\r\n"
+                + "    HRA = ?,\r\n"
+                + "    PF = ?,\r\n"
+                + "    Food =?,\r\n"
+                + "    Travel = ?\r\n"
+                + "WHERE EmpID =?";
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        
+
         statement.setDouble(1, emp.getBasic());
-        statement.setDouble(2,emp.getSpecialAllowances());
+        statement.setDouble(2, emp.getSpecialAllowances());
         statement.setDouble(3, emp.getMedical());
         statement.setInt(4, emp.getHra());
         statement.setInt(5, emp.getPf());
@@ -169,77 +165,73 @@ public class EmployeeDAO {
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
-        
+
         this.updateCTC(emp);
-        
+
         return rowInserted;
-	}
-	
-	public boolean updateCTC(EmployeeForm emp) throws SQLException {
-		String sql = "UPDATE Employees\r\n"
-				+ "SET CTC = ?\r\n"
-				+ "WHERE EmpID =?";
+    }
+
+    public boolean updateCTC(EmployeeForm emp) throws SQLException {
+        String sql = "UPDATE Employees\r\n"
+                + "SET CTC = ?\r\n"
+                + "WHERE EmpID =?";
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        
-        double total=emp.getBasic()+emp.getMedical()+emp.getSpecialAllowances()+
-        		(emp.getBasic()*emp.getPf()/100)+(emp.getBasic()*emp.getHra()/100);
-        
+
+        double total = emp.getBasic() + emp.getMedical() + emp.getSpecialAllowances() +
+                (emp.getBasic() * emp.getPf() / 100) + (emp.getBasic() * emp.getHra() / 100);
+
         statement.setDouble(1, total);
         statement.setString(2, emp.getEmpID());
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
         return rowInserted;
-	}
-	
-	
-	public boolean updateLevel(EmployeeForm emp) throws SQLException {
-		String sql = "UPDATE Employees\r\n"
-				+ "SET Level = ?,\r\n"
-				+ "    CTC = ?,\r\n"
-				+ "    Designation= ?\r\n"
-				+ "WHERE EmpID =?";
-		
-		
-		EmployeeForm prevemp=this.getData(emp.getEmpID());
-		
-		this.updateSalaryStructure(prevemp,prevemp.getCtc(), emp.getCtc());
-		
+    }
+
+    public boolean updateLevel(EmployeeForm emp) throws SQLException {
+        String sql = "UPDATE Employees\r\n"
+                + "SET Level = ?,\r\n"
+                + "    CTC = ?,\r\n"
+                + "    Designation= ?\r\n"
+                + "WHERE EmpID =?";
+
+        EmployeeForm prevemp = this.getData(emp.getEmpID());
+
+        this.updateSalaryStructure(prevemp, prevemp.getCtc(), emp.getCtc());
+
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        
+
         statement.setString(1, emp.getLevel());
-        statement.setDouble(2,emp.getCtc());
+        statement.setDouble(2, emp.getCtc());
         statement.setString(3, emp.getDesignation());
         statement.setString(4, emp.getEmpID());
-        
-        
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
         return rowInserted;
-	}
-	
-	public boolean updateSalaryStructure(EmployeeForm emp, double previousSalary, double currentSalary) throws SQLException {
-		String sql = "UPDATE SalaryDetails\r\n"
-				+ "SET Basic = ?,\r\n"
-				+ "    SpecialAllowances = ?,\r\n"
-				+ "    Medical = ?\r\n"
-				+ "WHERE EmpID =?";
-		
-		
-		double incr=currentSalary/previousSalary;
+    }
+
+    public boolean updateSalaryStructure(EmployeeForm emp, double previousSalary, double currentSalary)
+            throws SQLException {
+        String sql = "UPDATE SalaryDetails\r\n"
+                + "SET Basic = ?,\r\n"
+                + "    SpecialAllowances = ?,\r\n"
+                + "    Medical = ?\r\n"
+                + "WHERE EmpID =?";
+
+        double incr = currentSalary / previousSalary;
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        
-        statement.setDouble(1, emp.getBasic()*incr);
-        statement.setDouble(2,emp.getSpecialAllowances()*incr);
-        statement.setDouble(3, emp.getMedical()*incr);
+
+        statement.setDouble(1, emp.getBasic() * incr);
+        statement.setDouble(2, emp.getSpecialAllowances() * incr);
+        statement.setDouble(3, emp.getMedical() * incr);
         statement.setString(4, emp.getEmpID());
 
         boolean rowInserted = statement.executeUpdate() > 0;
@@ -247,19 +239,18 @@ public class EmployeeDAO {
         disconnect();
 
         return rowInserted;
-	}
-	
-	public ArrayList<String> getAllId() throws SQLException{
-		ArrayList<String> ids = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getAllId() throws SQLException {
+        ArrayList<String> ids = new ArrayList<String>();
         String sql = "SELECT EmpID FROM Employees";
         System.out.println(sql);
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        
 
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        	String empid= resultSet.getString("EmpID");
+            String empid = resultSet.getString("EmpID");
             ids.add(empid);
         }
         System.out.println(ids);
@@ -267,8 +258,6 @@ public class EmployeeDAO {
         statement.close();
         disconnect();
         return ids;
-	}
-	
-	
-	
+    }
+
 }

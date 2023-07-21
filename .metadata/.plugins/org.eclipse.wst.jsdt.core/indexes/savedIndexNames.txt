@@ -5,5 +5,3 @@ INDEX VERSION 1.4+D:\Documents\struts\EmployeeApprisalApp\.metadata\.plugins\org
 3629386424.index
 3781068657.index
 1867039273.index
-1023100101.index
-1023100101.index

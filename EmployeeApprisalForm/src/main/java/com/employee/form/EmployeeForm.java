@@ -3,37 +3,36 @@ package com.employee.form;
 import org.apache.struts.action.ActionForm;
 import java.time.LocalDate;
 
-
 public class EmployeeForm extends ActionForm {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String empID;
-    private String name;
-    private String postedDate;
-    private String processedDate;
-    private String level;
-    private double ctc;
-    private String username;
-    private String password;
-    private String role;
-    private String designation;
-    private double basic;
-    private double specialAllowances;
-    private double medical;
-    private int hra;
-    private int pf;
-    private int food;
-    private int travel;
-    
-    public EmployeeForm() {
-    	
-    }
-    
-    public EmployeeForm(String empID, String name, String postedDate, String level, double ctc, String username,
-            String password, String role, String designation, double basic, double specialAllowances,
-            double medical, int hra, int pf, int food, int travel) {
+	private String name;
+	private String postedDate;
+	private String processedDate;
+	private String level;
+	private double ctc;
+	private String username;
+	private String password;
+	private String role;
+	private String designation;
+	private double basic;
+	private double specialAllowances;
+	private double medical;
+	private int hra;
+	private int pf;
+	private int food;
+	private int travel;
+
+	public EmployeeForm() {
+
+	}
+
+	public EmployeeForm(String empID, String name, String postedDate, String level, double ctc, String username,
+			String password, String role, String designation, double basic, double specialAllowances,
+			double medical, int hra, int pf, int food, int travel) {
 		this.empID = empID;
 		this.name = name;
 		this.postedDate = postedDate;
@@ -54,7 +53,9 @@ public class EmployeeForm extends ActionForm {
 		LocalDate incrementedDate = date.plusMonths(3);
 		this.setProcessedDate(incrementedDate.toString());
 	}
-    public void addEmployees(String empID, String name, String postedDate, String level, double ctc, String username,String role, String designation) {
+
+	public void addEmployees(String empID, String name, String postedDate, String level, double ctc, String username,
+			String role, String designation) {
 		this.empID = empID;
 		this.name = name;
 		this.postedDate = postedDate;
@@ -62,14 +63,15 @@ public class EmployeeForm extends ActionForm {
 		this.ctc = ctc;
 		this.role = role;
 		this.designation = designation;
-		this.username=username;
+		this.username = username;
 		LocalDate date = LocalDate.parse(postedDate);
 		LocalDate incrementedDate = date.plusMonths(3);
 		this.setProcessedDate(incrementedDate.toString());
 	}
-    
-    public void addSalaryDetails( double basic, double specialAllowances, double medical, int hra, int pf, int food, int travel) {
-           
+
+	public void addSalaryDetails(double basic, double specialAllowances, double medical, int hra, int pf, int food,
+			int travel) {
+
 		this.basic = basic;
 		this.specialAllowances = specialAllowances;
 		this.medical = medical;
@@ -78,8 +80,8 @@ public class EmployeeForm extends ActionForm {
 		this.food = food;
 		this.travel = travel;
 	}
-    
-    public String getEmpID() {
+
+	public String getEmpID() {
 		return empID;
 	}
 
@@ -215,5 +217,4 @@ public class EmployeeForm extends ActionForm {
 		this.processedDate = processedDate;
 	}
 
-	
 }

@@ -1,0 +1,140 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div id="afterData">
+  <div>Employee Name : ${employeeDetails.name}</div>
+  <div>Employee CTC : ${employeeDetails.ctc}</div>
+  <div>Employee Level : ${employeeDetails.level}</div>
+  <div>Employee designation : ${employeeDetails.designation}</div>
+  <div>Employee email : ${employeeDetails.username}</div>
+
+  <label for="joiningDate">Joining Date:</label>
+  <input type="text" id="joiningDate" name="joiningDate" value="${employeeDetails.postedDate}" disabled />
+  <label for="ProcessedDate">Processed Date:</label>
+  <input type="text" id="ProcessedDate" name="ProcessedDate" value="${employeeDetails.processedDate}" disabled />
+  <br />
+  <!-- Button to open the modal -->
+  <h4>Do you want to promote?</h4>
+  <button id="openModalBtn1">Yes</button>
+  <button id="openModalBtn2">No</button>
+
+  <!-- Modal -->
+  <div id="myModal1" class="modal">
+    <div class="modal-content">
+      <span id="close1" class="close">&times;</span>
+      <h2>Employee Details</h2>
+      <form id="employeeForm">
+        <label for="basicSalary">Current CTC:</label>
+        <input type="text" id="basicSalary" name="basicSalary" value="${employeeDetails.ctc}" disabled />
+
+        <label for="revCTC">Revised CTC:</label>
+        <input type="text" id="revCTC" name="revCTC" value="${employeeDetails.ctc}" required />
+
+        <label for="curLevel">Current Level:</label>
+        <input type="text" id="curLevel" name="curLevel" value="${employeeDetails.level}" disabled />
+
+        <label for="level">Revised Level:</label>
+        <select id="level" name="level" required>
+          <option value="">Select Level</option>
+
+          <c:forEach begin="${Math.min(employeeDetails.level.substring(1)+1,9)}" end="9" var="level">
+            <option value="L${level}">L${level}</option>
+          </c:forEach>
+
+
+
+          <!-- Add more options for different levels -->
+        </select>
+
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" value="${employeeDetails.designation}" required />
+
+        <button style="margin:10px 220px;" onclick="updateDatabaseYes()">Update</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="myModal2" class="modal">
+    <div class="modal-content">
+      <span id="close2" class="close">&times;</span>
+      <h2>Employee Salary Details</h2>
+      <div class="modalpart">
+        <h2>Main pay</h2>
+        <label>
+          <input type="radio" name="section1" value="basic" onclick="enableSection2('basic')" />
+          Basic
+        </label>
+        <input type="text" id="basicSalary2" name="basicSalary2" value="${employeeDetails.basic}" disabled />
+        <span style="color: rebeccapurple;"> <span id="basicper">0</span> % incremented</span>
+        <br />
+        <label>
+          <input type="radio" name="section1" value="medical" onclick="enableSection2('medical')" />
+          Medical </label><input type="text" id="medicalSalary" value="${employeeDetails.medical}" disabled />
+        <span style="color: rebeccapurple;"> <span id="medicalper">0</span> % incremented</span>
+        <br />
+        <label>
+          <input type="radio" name="section1" value="special" onclick="enableSection2('special')" />
+          Special Allowance </label><input type="text" id="specialSalary" value="${employeeDetails.specialAllowances}"
+          disabled />
+        <span style="color: rebeccapurple;"> <span id="saper">0</span> % incremented</span>
+        <br />
+
+        <div id="sectionIndicator" style="display: none">
+          <h2 id="sectionNameIndicator">Section 2</h2>
+          <form>
+            <label for="percentageSelect">Percentage:</label>
+            <select id="percentageSelect" onchange="showManualInput()">
+              <option value="5">5%</option>
+              <option value="10">10%</option>
+              <option value="15">15%</option>
+              <option value="manual">Manual</option>
+            </select>
+            <input type="text" id="manualInput" style="display: none" onchange="manualChange()" />
+          </form>
+        </div>
+      </div>
+      <div class="modalpart">
+        <h2>secondary pay</h2>
+        <div id="inputFields">
+          <label for="pfInput">
+            <input name="section3" type="radio" id="pfInput" onclick="enableSection3('pf')" disabled />PF:</label>
+          <input type="text" id="pfTextInput" value="${employeeDetails.pf}" disabled>
+          <br />
+
+          <label for="hraInput">
+            <input name="section3" type="radio" id="hraInput" onclick="enableSection3('hra')" disabled />HRA:</label>
+          <input type="text" id="hraTextInput" value="${employeeDetails.hra}" disabled>
+          <br />
+
+          <label for="foodInput">
+            <input name="section3" type="radio" id="foodInput" onclick="enableSection3('food')" disabled />Food:</label>
+          <input type="text" id="foodTextInput" value="${employeeDetails.food}" disabled>
+          <br />
+
+          <label for="travelInput">
+            <input name="section3" type="radio" id="travelInput" onclick="enableSection3('travel')"
+              disabled />Travel:</label>
+          <input type="text" id="travelTextInput" value="${employeeDetails.travel}" disabled>
+          <br />
+        </div>
+
+
+        <div id="sectionIndicator2" style="display: none">
+          <h2 id="sectionNameIndicator2">Section 4</h2>
+          <form>
+            <label for="percentageSelect2">Percentage:</label>
+            <select id="percentageSelect2" onchange="showManualInput2()">
+              <option value="5">5%</option>
+              <option value="10">10%</option>
+              <option value="15">15%</option>
+              <option value="manual">Manual</option>
+            </select>
+            <input type="text" id="manualInput2" style="display: none" onchange="manualChange2()" />
+          </form>
+        </div>
+      </div>
+      <button style="margin:10px 220px;" onclick="updateDatabaseNo()">Update</button>
+    </div>
+  </div>
+
+</div>
+ 
+<script src="public/js/adminData.js"></script>
